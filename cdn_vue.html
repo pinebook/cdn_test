@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue</title>
+</head>
+<body>
+
+    <!-- JSファイル読み込み -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+
+    <!-- スクリプト -->
+    <script type="module">
+
+        // JSONレコード作成
+        const recs = [
+            {id: 1, value: "Test1"},
+            {id: 2, value: "Test2"},
+            {id: 3, value: "Test3"},
+            {id: 4, value: "Test4"},
+            {id: 5, value: "Test5"},
+        ];
+
+        // モジュール取得
+        const { createApp, ref, reactive, onMounted } = Vue;
+
+        // Vueインスタンス作成
+        const App = createApp({
+            setup() {
+
+                // リアクティブ変数の宣言
+                const reactMessage = ref("");
+                const reactRecs = reactive([]);
+
+                // ライフサイクルフック（マウント時）
+                onMounted(() => {
+
+                    // リアクティブ変数の初期化
+                    initReactVariables();
+
+                })
+
+                // リアクティブ変数の初期値を設定
+                const initReactVariables = () => {
+
+                    // メッセージ設定
+                    reactMessage.value = "Test CDN Vue3 with Composition API";
+
+                    // JSONレコード設定
+                    reactRecs.push(...recs);
+
+                }
+
+                // 戻り値の設定
+                return {
+
+                    reactMessage,
+                    reactRecs,
+
+                };
+
+            },
+
+        });
+
+        // Appに追加
+        App.mount("#app");
+
+    </script>
+
+    <!-- HTML -->
+    <div id="app">
+
+        <div>{{ reactMessage }}</div>
+
+        <div>
+            <p style="margin: 0" v-for="it in reactRecs" :key="it.id">
+                <span>ID: {{ it.id }}</span>
+                <span style="margin-left: 10px;">Value: {{ it.value }}</span>
+            </p>
+        </div>
+
+    </div>
+
+</body>
+</html>

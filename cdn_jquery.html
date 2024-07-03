@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JQuery</title>
+</head>
+<body>
+
+    <!-- JSファイル読み込み -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- スクリプト -->
+    <script>
+
+        // JSONレコード作成
+        const recs = [
+            {id: 1, value: "Test1"},
+            {id: 2, value: "Test2"},
+            {id: 3, value: "Test3"},
+            {id: 4, value: "Test4"},
+            {id: 5, value: "Test5"},
+        ];
+
+        // 変数の宣言
+        let reactMessage = "";
+        let reactRecs = [];
+
+        // マウント時
+        $(function(){
+
+            // 変数の初期化
+            initReactVariables();
+
+            // 変数の表示
+            dispReactVariables();
+
+        })
+
+        // 変数の初期値を設定
+        const initReactVariables = () => {
+
+            // メッセージ設定
+            reactMessage = "Test CDN JQuery";
+                            
+            // JSONレコード設定
+            reactRecs = recs;
+
+        }
+
+        // DOM作成と表示
+        const dispReactVariables = () => {
+
+            // メッセージ作成
+            const divMessage = $("<div></div>");
+            divMessage.text(reactMessage);
+
+            // JSONレコード作成
+            const divRecs = $("<div></div>");
+
+            // レコード数分ループ
+            reactRecs.forEach(it => {
+
+                // DOM作成
+                const pRow = $("<p style='margin: 0'></p>");
+                const spanId = $(`<span>ID: ${it.id}</span>`);
+                const spanValue = $(`<span style='margin-left: 10px;'>Value: ${it.value}</span>`);
+                pRow.append(spanId, spanValue);
+                divRecs.append(pRow);
+
+            })
+
+            // Appに追加
+            const divApp = $("#app");
+            divApp.append(divMessage);
+            divApp.append(divRecs);
+
+        }
+
+    </script>
+
+    <!-- HTML -->
+    <div id="app"></div>
+
+</body>
+</html>

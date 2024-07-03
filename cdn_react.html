@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React</title>
+</head>
+<body>
+
+    <!-- JSファイル読み込み -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- スクリプト -->
+    <script type="text/babel">
+
+        // JSONレコード作成
+        const recs = [
+            {id: 1, value: "Test1"},
+            {id: 2, value: "Test2"},
+            {id: 3, value: "Test3"},
+            {id: 4, value: "Test4"},
+            {id: 5, value: "Test5"},
+        ];
+
+        // モジュール取得
+        const { useEffect, useState } = React;
+
+        // Reactインスタンス作成
+        const App = () => {
+
+            // リアクティブ変数の宣言
+            const [ reactMessage, setreactMessage ] = useState("");
+            const [ reactRecs, setreactRecs ] = useState([]);
+
+            // ライフサイクルフック（マウント）
+            useEffect(() => {
+
+                // リアクティブ変数の初期化
+                initReactVariables();
+
+            }, [])
+
+            // リアクティブ変数の初期値を設定
+            const initReactVariables = () => {
+
+                // メッセージ設定
+                setreactMessage("Test CDN React");
+                                
+                // JSONレコード設定
+                setreactRecs([...recs]);
+
+            }
+
+            // 戻り値の設定（JSX）
+            return(
+                <>
+                    <div>{reactMessage}</div>
+                    <div>
+                        { reactRecs.map(it => {
+                            return(
+                                <p style={{ margin: 0 }}>
+                                    <span>ID: { it.id }</span>
+                                    <span style={{ marginLeft: '10px' }}>Value: { it.value }</span>
+                                </p>
+                            )
+                        }) }
+                    </div>
+                </>
+            );
+
+        }
+
+        // Appに追加
+        const app = document.querySelector("#app");
+        ReactDOM.render(<App />, app);
+
+    </script>
+
+    <!-- HTML -->
+    <div id="app"></div>
+
+</body>
+</html>
